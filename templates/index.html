@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <!--<link href="../verif.css" rel="stylesheet" type="text/css" />-->
+        <title>LTLf 2 DFA</title>
+    </head>
+    <body>
+        <h1>LTL<sub>f</sub>2DFA</h1>
+        <hr>
+        <h2>LTL<sub>f</sub>2DFA is a tool that processes an LTL<sub>f</sub> formula (with past or future temporal
+            operators) and generates the corresponding minimized DFA (Deterministic Finite state Automaton) using
+            MONA.</h2>
+
+        <hr>
+
+        <form method='post' action=''>
+
+            <p>
+                <b>LTL<sub>f</sub> formula:</b>
+                <input type=text size=60 name=formula value="">
+                <input type=submit name=submit value=Submit>
+            </p>
+                <input type=checkbox name=gen>Add to the formula DECLARE assumption<br>
+        </form>
+
+        <div class="dynamic"></div>
+
+        <hr>
+        <h3>How to use it?</h3>
+        Enter in the form an LTL<sub>f</sub> formula and check the box if you would like to add DECLARE assumption to
+        the formula.
+        <p>
+        An LTL<sub>f</sub> formula may contain propositional symbols, boolean operators,
+        future/past temporal operators, and parentheses.<br>
+
+        <p><b>NOTE:</b> The formula must contain ONLY future or past temporal operators, otherwise you will get an error.</p>
+
+        Propositonal Symbols:
+        <table border="1">
+            <tr>
+                <th>Symbol</th>
+                <th>Value</th>
+            </tr>
+            <tr>
+                <th>T</th>
+                <th>True</th>
+            </tr>
+            <tr>
+                <th>F</th>
+                <th>False</th>
+            </tr>
+            <tr>
+                <th>[a-z]</th>
+                <th>String</th>
+            </tr>
+        </table>
+
+        <p>
+        Boolean Operators:
+        <table border="1">
+            <tr>
+                <th>Symbol</th>
+                <th>Value</th>
+            </tr>
+            <tr>
+                <th>&</th>
+                <th>And</th>
+            </tr>
+            <tr>
+                <th>|</th>
+                <th>Or</th>
+            </tr>
+            <tr>
+                <th>~</th>
+                <th>Not</th>
+            </tr>
+            <tr>
+                <th>-></th>
+                <th>Implies</th>
+            </tr>
+            <tr>
+                <th><-></th>
+                <th>Equivalence</th>
+            </tr>
+        </table>
+
+        <p>
+        Future Temporal Operators:
+        <table border="1">
+            <tr>
+                <th>Symbol</th>
+                <th>Value</th>
+            </tr>
+            <tr>
+                <th>X</th>
+                <th>Next</th>
+            </tr>
+            <tr>
+                <th>E</th>
+                <th>Eventually</th>
+            </tr>
+            <tr>
+                <th>U</th>
+                <th>Untiil</th>
+            </tr>
+            <tr>
+                <th>G</th>
+                <th>Always</th>
+            </tr>
+        </table>
+
+        <p>
+        Past Temporal Operators:
+        <table border="1">
+            <tr>
+                <th>Symbol</th>
+                <th>Value</th>
+            </tr>
+            <tr>
+                <th>Y</th>
+                <th>Previous</th>
+            </tr>
+            <tr>
+                <th>O</th>
+                <th>Once</th>
+            </tr>
+            <tr>
+                <th>S</th>
+                <th>Since</th>
+            </tr>
+            <tr>
+                <th>H</th>
+                <th>Always</th>
+            </tr>
+        </table>
+
+        <p>
+        The program will automatically display the resulting DFA automaton.
+
+        <hr>
+        <h3>Example of an LTL<sub>f</sub> formula</h3>
+        <h4>G(a -> Xb)</h4>
+        <hr>
+        The LTL<sub>f</sub>2DFA software was written by Francesco Fuggitti, under the supervision of
+        <a href="https://www.dis.uniroma1.it/~degiacom/">Prof. De Giacomo</a>, and uses the
+        <a href="http://www.brics.dk/mona/">MONA</a> tool for the generation of the automaton.<br>
+
+        <a href="https://github.com/Francesco17/LTLf2DFA">LTLf2DFA</a> is available to download on GitHub.<br>
+    </body>
+</html>
