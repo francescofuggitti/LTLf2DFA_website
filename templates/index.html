@@ -14,17 +14,20 @@
 
         <hr>
 
-        <form method='post' action=''>
+        <form method='POST' action="{{ url_for('index') }}">
 
             <p>
                 <b>LTL<sub>f</sub> formula:</b>
-                <input type=text size=60 name=formula value="">
-                <input type=submit name=submit value=Submit>
+                <input type="text" size=60 name="formula" value="">
+                <input type="submit" name="submit" value=Submit>
             </p>
-                <input type=checkbox name=gen>Add to the formula DECLARE assumption<br>
+                <input type="checkbox" name="declare">Add to the formula DECLARE assumption<br>
         </form>
+        <img src="../../automa.jpg">
 
-        <div class="dynamic"></div>
+        <div class="dynamic">
+            {% block body %}{% endblock %}
+        </div>
 
         <hr>
         <h3>How to use it?</h3>
