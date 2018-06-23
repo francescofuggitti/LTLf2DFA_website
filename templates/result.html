@@ -1,6 +1,7 @@
 {% extends "index.html" %}
 
 {% block body %}
-<!--<img src="{{ '../images/'+automa_name }}">-->
-<img src="tmp/automa.jpg">
+<hr />
+<img src="{{ url_for('static', filename='tmp/'+automa_name) }}">
+<!-- <img src="static/tmp/automa.jpg"> -->
 {% endblock %}

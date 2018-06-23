@@ -9,8 +9,7 @@
         <h1>LTL<sub>f</sub>2DFA</h1>
         <hr>
         <h2>LTL<sub>f</sub>2DFA is a tool that processes an LTL<sub>f</sub> formula (with past or future temporal
-            operators) and generates the corresponding minimized DFA (Deterministic Finite state Automaton) using
-            MONA.</h2>
+            operators) and generates the corresponding minimized DFA (Deterministic Finite state Automaton).</h2>
 
         <hr>
 
@@ -23,7 +22,8 @@
             </p>
                 <input type="checkbox" name="declare">Add to the formula DECLARE assumption<br>
         </form>
-        <img src="../../automa.jpg">
+        <!-- <img src="{{ url_for('static', filename='tmp/automa.jpg') }}"> -->
+        <!-- <img src="static/tmp/automa.jpg"> -->
 
         <div class="dynamic">
             {% block body %}{% endblock %}
