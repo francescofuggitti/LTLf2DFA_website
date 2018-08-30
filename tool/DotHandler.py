@@ -23,7 +23,7 @@ class DotHandler:
 
     def output_dot(self):
         try:
-            with open("automa.dot", 'w+') as f:
+            with open("static/tmp/automa.dot", 'w+') as f:
                 f.write(self.new_digraph.to_string())
                 f.close()
         except IOError:
