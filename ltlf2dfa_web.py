@@ -21,9 +21,9 @@ def index():
                 translator.translate()
                 translator.createMonafile(declare_assumption)
 
-                translator.invoke_mona('static/engine/automa')
+                translator.invoke_mona()
 
-                dot_handler = DotHandler('static/engine/automa.dot')
+                dot_handler = DotHandler()
                 dot_handler.modify_dot()
 
                 random_number = random.randrange(0, 9999)
