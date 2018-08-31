@@ -140,6 +140,23 @@
         The program will automatically display the resulting DFA automaton.
 
         <hr>
+        <h3>How to read the DFA?</h3>
+        Labels on transitions represent the value of symbols present in the formula.
+        Possible values are:
+        <ul>
+            <li>
+                <b>0</b>: means the symbol is False.
+            </li>
+            <li>
+                <b>1</b>: means the symbol is True.
+            </li>
+            <li>
+                <b>X</b>: means <i>don't care</i>, the symbol can be both True and False.
+            </li>
+        </ul>
+        Finally, with multiple symbols in the formula, the value of each symbol has to be read
+        vertically in the order of declaration in the formula.
+        <hr />
         <h3>Example of an LTL<sub>f</sub> formula</h3>
         <h4>G(a -> Xb)</h4>
         <hr>
