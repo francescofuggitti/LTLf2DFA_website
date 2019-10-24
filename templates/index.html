@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      <!-- Global site tag (gtag.js) - Google Analytics -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-137788077-2"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-137788077-2');
+      </script>
+      <meta charset="UTF-8">
+      <title>LTLf 2 DFA</title>
+      <meta name="description" content="LTLf2DFA, a tool for converting LTLf and PLTLf formulas to DFA">
+      <meta name="keywords" content="LTLf2DFA, LTLf, PLTLf, DFA, deterministic finite state automata, automata, declare, automaton, sapienza">
+      <meta name="author" content="Francesco Fuggitti">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="robots" content="all">
+      <link rel="canonical" href="">
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+      <link rel="stylesheet" href="../static/css/main.css" type="text/css">
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+      <script type="text/javascript">
+        $(document).ready(function() {
+          $(window).keydown(function(event){
+            if(event.keyCode == 13) {
+              event.preventDefault();
+              return false;
+            }
+          });
+        });
+        function handleClick() {
+          let formula = $("#formula").val();
+          if (formula != ""){
+            let flag = '';
+            if ($('#flag').is(":checked")) {
+              flag = 'true';
+            }
+            else{
+              flag = 'false';
+            }
+            //  ajax api request to ltlf2dfa.diag.uniroma1.it/dfa + handle json
+            $.ajax({
+              type: 'POST',
+              url: 'http://ltlf2dfa.diag.uniroma1.it/dfa/'+formula+'/'+flag,
+              success: [function (data) {
+                let parsed = JSON.parse(data);
+                if (parsed.code == "SUCCESS"){
+                  document.getElementById('dynamic').innerHTML = "<hr /> <p>Automaton corresponding to \"" + parsed.formula + "\"; declare assumption: "+flag+"</p>";
+                  document.getElementById('dynamic').innerHTML += "<img"+atob(parsed.svg)+"</img>";
+                }
+                else{
+                  document.getElementById('dynamic').innerHTML = '<hr /> <p>Request Status: ' + parsed.code + '; Error Text: ' + parsed.error+"</p>";
+                }
+              }]
+            });
+          }
+        }
+      </script>
+
+    </head>
+    <body lang="en">
+      <a href="https://github.com/Francesco17/LTLf2DFA.git"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+      <div id="main" class="container" role="main">
+        <div class="col-xs-1">
+          <h1 align="center">LTL<sub>f</sub>2DFA</h1>
+          <h3 align="center">LTL<sub>f</sub>2DFA is a tool that processes an LTL<sub>f</sub>/PLTL<sub>f</sub> formula and generates the corresponding minimized Deterministic Finite state Automaton (DFA).</h3>
+        </div>
+        <hr />
+        <div class="col-xs-1" align="center">
+<!--            <form method='POST' action="{{ url_for('index') }}">-->
+            <form method='POST'>
+                <div class="form-group">
+                    <b>LTL<sub>f</sub>/PLTL<sub>f</sub> formula:</b>
+                    <input type="text" name="formula" value="" id="formula" required>
+                  <button type="button" value="to DFA" name="submit" onclick="handleClick();">to DFA</button>
+                </div>
+                    <input type="checkbox" name="declare" id="flag"> Add the DECLARE assumption to the formula. <a href="#declare">What's DECLARE assumption?</a><br>
+
+                <!-- <p>The DECLARE assumption consists of having exactly one proposition true at each point in time.
+                   For further details see below.</p> -->
+            </form>
+        </div>
+<!--            {% block body %}{% endblock %}-->
+         <div class="col-xs-1" id="dynamic">
+         </div>
+
+        <hr>
+        <div id="usage">
+          <div class="row">
+            <div class="col-12">
+                <h2>How to use it?</h2>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              Enter an LTL<sub>f</sub>/PLTL<sub>f</sub> formula in the form and check the box if you would like to add DECLARE assumption to it.
+              Then, hit the "to DFA" button and the resulting DFA automaton will be displayed automatically. <br />
+              An LTL<sub>f</sub> formula may contain propositional symbols, boolean operators,
+              <i>future</i> temporal operators, and parentheses.<br />
+              A PLTL<sub>f</sub> formula may contain propositional symbols, boolean operators,
+              <i>past</i> temporal operators, and parentheses. <br />
+              <b>NOTE:</b> The formula must contain ONLY future or ONLY past temporal operators, otherwise you will get an error.
+            </div>
+          </div>
+        </div>
+
+    <div id="syntax" align="center">
+      <hr />
+        <div class="row justify-content-center">
+          <div class="col">
+              <h3>Syntax</h3>
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col">
+            <table class="table">
+              <thead>
+                <tr>
+                    <b>Propositional Symbols</b>
+                </tr>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Semantics</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><tt>true</tt></td>
+                  <td>True</td>
+                </tr>
+                <tr>
+                  <td><tt>false</tt></td>
+                  <td>False</td>
+                </tr>
+                <tr>
+                  <td><tt>[a-z0-9]+</tt></td>
+                  <td>Atomic</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col">
+            <table class="table">
+              <thead>
+                <tr>
+                    <b>Boolean Operators</b>
+                </tr>
+                <tr>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Semantics</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><tt>&</tt></td>
+                  <td>And</td>
+                </tr>
+                <tr>
+                  <td><tt>|</tt></td>
+                  <td>Or</td>
+                </tr>
+                <tr>
+                  <td><tt>~</tt></td>
+                  <td>Not</td>
+                </tr>
+                <tr>
+                  <td><tt>-></tt></td>
+                  <td>Implication</td>
+                </tr>
+                <tr>
+                  <td><tt><-></tt></td>
+                  <td>Equivalence</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col">
+            <table class="table">
+              <thead>
+                <tr>
+                    <b>LTL<sub>f</sub> Operators</b>
+                </tr>
+                <tr>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Semantics</th>
+                  <!-- <th>Example</th> -->
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><tt>X</tt></td>
+                  <td>Next</td>
+                  <!-- <td><tt>A</tt>,<tt>b01</tt></td> -->
+                </tr>
+                <tr>
+                  <td><tt>F</tt></td>
+                  <td>Eventually</td>
+                </tr>
+                <tr>
+                  <td><tt>U</tt></td>
+                  <td>Until</td>
+                </tr>
+                <tr>
+                  <td><tt>G</tt></td>
+                  <td>Always</td>
+                </tr>
+                <tr>
+                  <td><tt>W</tt></td>
+                  <td>Weak Next</td>
+                </tr>
+                <tr>
+                  <td><tt>R</tt></td>
+                  <td>Release</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col">
+            <table class="table">
+              <thead>
+                <tr>
+                    <b>PLTL<sub>f</sub> Operators</b>
+                </tr>
+                <tr>
+                <tr>
+                  <th>Syntax</th>
+                  <th>Semantics</th>
+                  <!-- <th>Example</th> -->
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><tt>Y</tt></td>
+                  <td>Yesterday</td>
+                  <!-- <td><tt>A</tt>,<tt>b01</tt></td> -->
+                </tr>
+                <tr>
+                  <td><tt>O</tt></td>
+                  <td>Once</td>
+                </tr>
+                <tr>
+                  <td><tt>S</tt></td>
+                  <td>Since</td>
+                </tr>
+                <tr>
+                  <td><tt>H</tt></td>
+                  <td>Historically</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        </div>
+
+        <hr/>
+
+        <div id="reading">
+          <div class="row">
+            <div class="col-12">
+                <h2>How to read the resulting DFA?</h2>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              Circle nodes represent automaton states. <br />
+              Double circle nodes represent accepting/final states for the automaton. <br />
+              Labels on transitions represent the value of symbols present in the formula.
+              Possible values are:
+              <ul>
+                  <li>
+                      <b>0</b>: means the symbol is False.
+                  </li>
+                  <li>
+                      <b>1</b>: means the symbol is True.
+                  </li>
+                  <li>
+                      <b>X</b>: means <i>don't care</i>, the symbol can be both True and False.
+                  </li>
+              </ul>
+              Finally, with multiple symbols in the formula, the value of each symbol has to be read
+              vertically in the order of declaration in the formula.
+            </div>
+          </div>
+        </div>
+	<!-- <hr />
+        <h2>Example of an LTL<sub>f</sub> formula: G(a -> Xb)</h2> -->
+        <!-- <h4></h4> -->
+        <hr/>
+
+        <div id="declare">
+          <div class="row">
+            <div class="col-12">
+                <h2>What's the DECLARE assumption?</h2>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              DECLARE is a language and framework for the declarative, constraint-based modelling of processes and services.
+              The DECLARE framework provides a set P of propositions representing atomic tasks (i.e. actions), which are units
+              of work in the process. DECLARE assumes that, at each point in time, one and only one task is executed, and that
+              the process eventually terminates. Following the second assumption, LTL<sub>f</sub> is used to specify DECLARE processes,
+              whereas the first assumption is captured by the following LTL<sub>f</sub> formula, assumed as an implicit constraint:
+              <div class="row">
+                <div class="col-12">
+                    <img src="{{ url_for('static', filename='images/declare-img1.svg') }}" style="width:250px;height:40px">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <hr>
+
+        <div id="citation">
+          <div class="row">
+            <div class="col-12">
+                <h2>How to cite the software?</h2>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+            If you're interested in this software and you use it in your work, please consider citing it. <br />
+            DOI: 10.5281/zenodo.2598764 <br />
+              <a href="https://zenodo.org/badge/latestdoi/129366709"><img src="https://zenodo.org/badge/129366709.svg" alt="DOI"></a>
+            </div>
+          </div>
+        </div>
+        <hr />
+
+        <div id="behind">
+          <div class="row">
+            <div class="col-12">
+                <h2>Who's behind LTL<sub>f</sub>2DFA?</h2>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              The LTL<sub>f</sub>2DFA software was written by Francesco Fuggitti, under the supervision of
+              <a href="https://www.dis.uniroma1.it/~degiacom/">Prof. De Giacomo</a>, and uses the
+              <a href="http://www.brics.dk/mona/">MONA</a> tool for the generation of the automaton.<br>
+              Moreover, you can find the LTL<sub>f</sub>2DFA project available to clone/download on
+              <a href="https://github.com/Francesco17/LTLf2DFA">GitHub</a> or you can easily integrate it
+              into a project through the PyPI package <a href="https://pypi.org/project/ltlf2dfa/">here</a>.<br>
+	      You may also be interested in <a href="https://flloat.herokuapp.com/">FLLOAT<a>.<br>
+              Email:     <span>fuggitti</span>
+              <!-- <span style="color: grey">dot</span>
+              <span>1735212</span> -->
+              <span style="color: grey">at</span>
+              <span>eecs</span>
+              <span style="color: grey">dot</span>
+              <span>yorku</span>
+              <span style="color: grey">dot</span>
+              <span>ca</span>
+            </div>
+          </div>
+        </div>
+
+    <hr>
+    <footer>&copy; Copyright 2019 Francesco Fuggitti</footer>
+  </div>
+    </body>
+</html>

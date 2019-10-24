@@ -1,0 +1,10 @@
+{% extends "index.html" %}
+
+{% block body %}
+<hr />
+<div class="col-xs-1">
+  <p>Automa corresponding to "{{ formula }}" {% if flag%} with declare assumptions {% endif %}</p>
+  <img src="{{ url_for('static', filename='tmp/'+automa_name+'.svg') }}">
+<!--  <p>"{{ encoding }}"</p>-->
+</div>
+{% endblock %}

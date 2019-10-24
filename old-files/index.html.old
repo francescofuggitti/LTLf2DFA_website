@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>LTLf 2 DFA</title>
+    </head>
+    <body>
+        <h1>LTL<sub>f</sub>2DFA</h1>
+        
+        <h2>LTL<sub>f</sub>2DFA is a tool that processes an LTL<sub>f</sub> formula (with all past or all future temporal
+            operators) and generates the corresponding minimized DFA (Deterministic Finite state Automaton).</h2>
+        <hr>
+
+        <form method='POST' action="{{ url_for('index') }}">
+
+            <p>
+                <b>LTL<sub>f</sub> formula:</b>
+                <input type="text" size=60 name="formula" value="" required="required">
+                <input type="submit" name="submit" value="to DFA">
+            </p>
+                <input type="checkbox" name="declare">Add the DECLARE assumption to the formula<br>
+            <p>The DECLARE assumption consists of having exactly one proposition true at each point in time.
+               For further details see below.</p>    
+        </form>
+
+        <div class="dynamic">
+            {% block body %}{% endblock %}
+        </div>
+
+        <hr>
+        <h2>How to use it?</h2>
+	<p>
+        Enter in the form an LTL<sub>f</sub> formula and check the box if you would like to add DECLARE assumption to
+        the formula.
+        </p>
+	<p>
+        An LTL<sub>f</sub> formula may contain propositional symbols, boolean operators,
+        future/past temporal operators, and parentheses.<br>
+	</p>
+        <p><b>NOTE:</b> The formula must contain ONLY future or ONLY past temporal operators, otherwise you will get an error.</p>
+	<p>
+        Propositonal Symbols:
+        <table border="1">
+            <tr>
+                <th>Symbol</th>
+                <th>Value</th>
+            </tr>
+            <tr>
+                <th>true</th>
+                <th>True</th>
+            </tr>
+            <tr>
+                <th>false</th>
+                <th>False</th>
+            </tr>
+            <tr>
+                <th>[a-z0-9]+</th>
+                <th>String</th>
+            </tr>
+        </table>
+	</p>
+        <p>
+        Boolean Operators:
+        <table border="1">
+            <tr>
+                <th>Symbol</th>
+                <th>Value</th>
+            </tr>
+            <tr>
+                <th>&</th>
+                <th>And</th>
+            </tr>
+            <tr>
+                <th>|</th>
+                <th>Or</th>
+            </tr>
+            <tr>
+                <th>~</th>
+                <th>Not</th>
+            </tr>
+            <tr>
+                <th>-></th>
+                <th>Implies</th>
+            </tr>
+            <tr>
+                <th><-></th>
+                <th>Equivalence</th>
+            </tr>
+        </table>
+	</p>
+        <p>
+        Future Temporal Operators:
+        <table border="1">
+            <tr>
+                <th>Symbol</th>
+                <th>Value</th>
+            </tr>
+            <tr>
+                <th>X</th>
+                <th>Next</th>
+            </tr>
+            <tr>
+                <th>F</th>
+                <th>Eventually</th>
+            </tr>
+            <tr>
+                <th>U</th>
+                <th>Until</th>
+            </tr>
+            <tr>
+                <th>G</th>
+                <th>Always</th>
+            </tr>
+            <tr>
+                <th>W</th>
+                <th>Weak Next</th>
+            </tr>
+            <tr>
+                <th>R</th>
+                <th>Release</th>
+            </tr>
+        </table>
+	</p>
+        <p>
+        Past Temporal Operators:
+        <table border="1">
+            <tr>
+                <th>Symbol</th>
+                <th>Value</th>
+            </tr>
+            <tr>
+                <th>Y</th>
+                <th>Yesterday</th>
+            </tr>
+            <tr>
+                <th>O</th>
+                <th>Once</th>
+            </tr>
+            <tr>
+                <th>S</th>
+                <th>Since</th>
+            </tr>
+            <tr>
+                <th>H</th>
+                <th>Historically</th>
+            </tr>
+        </table>
+	</p>
+        <p>
+        The program will automatically display the resulting DFA automaton.
+	</p>
+        <hr>
+        <h2>How to read the DFA?</h2>
+	<p>
+        Circle nodes represent automaton states. <br />
+        Double circle nodes represent accepting/final states for the automaton. <br />
+        Labels on transitions represent the value of symbols present in the formula.
+        Possible values are:
+        <ul>
+            <li>
+                <b>0</b>: means the symbol is False.
+            </li>
+            <li>
+                <b>1</b>: means the symbol is True.
+            </li>
+            <li>
+                <b>X</b>: means <i>don't care</i>, the symbol can be both True and False.
+            </li>
+        </ul>
+        Finally, with multiple symbols in the formula, the value of each symbol has to be read
+        vertically in the order of declaration in the formula.
+        </p>
+	<hr />
+        <h2>Example of an LTL<sub>f</sub> formula</h2>
+        <h4>G(a -> Xb)</h4>
+        <hr/>
+        <h2>DECLARE assuption</h2>
+        <p>
+        DECLARE is a language and framework for the declarative, constraint-based modelling of processes and services.
+        The DECLARE framework provides a set P of propositions representing atomic tasks (i.e. actions), which are units
+        of work in the process. DECLARE assumes that, at each point in time, one and only one task is executed, and that 
+        the process eventually terminates. Following the second assumption, LTL<sub>f</sub> is used to specify DECLARE processes, 
+        whereas the first assumption is captured by the following LTL<sub>f</sub> formula, assumed as an implicit constraint:
+        </p>
+        <img src="{{ url_for('static', filename='images/declare-img') }}" style="width:250px;height:40px">
+        <hr>
+        <h3>Behind LTL<sub>f</sub>2DFA</h3>
+	<p>
+        The LTL<sub>f</sub>2DFA software was written by Francesco Fuggitti, under the supervision of
+        <a href="https://www.dis.uniroma1.it/~degiacom/">Prof. De Giacomo</a>, and uses the
+        <a href="http://www.brics.dk/mona/">MONA</a> tool for the generation of the automaton.<br>
+        Moreover, you can find the LTL<sub>f</sub>2DFA project available to clone/download on 
+        <a href="https://github.com/Francesco17/LTLf2DFA">GitHub</a> or you can easily integrate it
+        into a project through the PyPI package <a href="https://pypi.org/project/ltlf2dfa/">here</a>.<br>
+        Contact:     <span>fuggitti</span>
+        <span style="color: grey">dot</span>
+        <span>1735212</span>
+        <span style="color: grey">at</span>
+        <span>studenti</span>
+        <span style="color: grey">dot</span>
+        <span>uniroma1</span>
+        <span style="color: grey">dot</span>
+        <span>it</span>
+	</p>
+    </body>
+</html>
