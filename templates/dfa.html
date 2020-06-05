@@ -29,6 +29,9 @@
 </div>
 
 <hr/>
+<div class="row row-dfa justify-content-md-center" id="row-dfa">
+    <img src="{{ url_for('static', filename='tmp/'+automa_name+'.svg') }}">
+</div>
 {% endblock %}
 
 
@@ -36,5 +39,5 @@
 <!--<div class="col-xs-1">-->
 <!--  <p>Automa corresponding to "{{ formula }}" {% if flag%} with declare assumptions {% endif %}</p>-->
 <!--  <img src="{{ url_for('static', filename='tmp/'+automa_name+'.svg') }}">-->
-<!--&lt;!&ndash;  <p>"{{ encoding }}"</p>&ndash;&gt;-->
+<!--  <p>"{{ encoding }}"</p>-->
 <!--</div>-->

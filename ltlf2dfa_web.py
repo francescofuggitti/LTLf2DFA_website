@@ -33,7 +33,8 @@ def pltlf_syntax():
 
 @app.route('/dfa')
 def dfa():
-    return render_template("dfa.html")
+    automa_name = ""
+    return render_template("dfa.html", automa_name=automa_name)
 
 # @app.route('/dfa', methods=['POST'])
 # def dfa():
