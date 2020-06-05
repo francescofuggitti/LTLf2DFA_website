@@ -31,6 +31,9 @@ def ltlf_syntax():
 def pltlf_syntax():
     return render_template("pltlf_syntax.html")
 
+@app.route('/dfa')
+def dfa():
+    return render_template("dfa.html")
 
 # @app.route('/dfa', methods=['POST'])
 # def dfa():
@@ -63,7 +66,7 @@ def pltlf_syntax():
 #
 #             return json_data
 #
-#             # return render_template('result.html', automa_name=automa_name, formula=params['formula'], encoding=encoding, flag=declare_assumption)
+#             # return render_template('dfa.html', automa_name=automa_name, formula=params['formula'], encoding=encoding, flag=declare_assumption)
 #
 #         except Exception as e:
 #             data = {'code': "FAIL", 'formula': formula, 'flag': declare_assumption, 'error': str(e)}

@@ -1,23 +1,23 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="row row-custom justify-content-md-center align-items-center">
-    <div class="col-12 d-flex justify-content-center text-center">
-        <form class="form-inline">
-          <div class="form-group mb-2">
-            <label for="inputFormula" class="sr-only">Type an LTLf or a PLTLf formula...</label>
-            <input type="text" class="form-control form-control-lg mr-3" id="inputFormula" placeholder="Type an LTLf or a PLTLf formula...">
-            <button type="submit" id="buttonFormula" class="btn btn-lg btn-light btn-custom">Convert</button>
-          </div>
-        </form>
-    </div>
-</div>
-<div class="row justify-content-md-center align-items-center">
-    <div class="col-12 d-flex justify-content-center">
-        <div class="container sub">
-            <small><a href="ltlf_syntax">LTL<sub>f</sub> syntax</a></small>
-            &middot;
-            <small><a href="pltlf_syntax">PLTL<sub>f</sub> syntax</a></small>
+<div class="row row-index justify-content-md-center" id="row-index">
+    <form class="form-inline">
+        <div class="form-group form-group-lg">
+            <div class="col-10">
+                <label for="inputFormula" class="sr-only">Type an LTLf or a PLTLf formula...</label>
+                <input type="text" class="form-control form-control-lg" id="inputFormula" placeholder="Type an LTLf or a PLTLf formula...">
+            </div>
+            <div class="col-2">
+                <button type="submit" id="buttonFormula" class="btn btn-lg btn-light btn-custom">Convert</button>
+            </div>
         </div>
+    </form>
+    <div class="container sub">
+        <small><a href="ltlf_syntax">LTL<sub>f</sub> Syntax</a></small>
+        <a style="color:#802433">&middot;</a>
+        <small><a href="pltlf_syntax">PLTL<sub>f</sub> Syntax</a></small>
+        <a style="color:#802433">&middot;</a>
+        <small><a href="/dfa">Random Example</a></small>
     </div>
 </div>
 {% endblock %}

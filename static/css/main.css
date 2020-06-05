@@ -1,22 +1,27 @@
-/* Navbar */
-.row-custom {
-    margin-top: 12rem;
-}
 /* Footer */
 .footer a {
     color: white;
 }
 /* Input Form */
-.form-inline {
+.row-index {
+    margin-top: 12rem;
+}
+.row-dfa {
+    margin-top: 1rem;
+}
+#row-index .form-inline {
     width: 80%;
+    text-align: center;
+}
+#row-dfa .form-inline {
+    width: 100%;
     text-align: center;
 }
 .form-group {
     width: 100%;
-    text-align: center;
 }
 #inputFormula {
-    width: 80%;
+    width: 100%;
 }
 .btn-custom {
     background-color: #802433;
@@ -28,7 +33,10 @@
 }
 .sub {
     width: 80%;
-    padding-left: 0.5rem;
+}
+.sub-dfa {
+    width: 100%;
+    padding-left: 7rem;
 }
 /* Custom Color anchors */
 .main a {
@@ -36,6 +44,10 @@
 }
 .main a:hover {
     color: rgba(128, 36, 51, 0.8);
+}
+/* Headings color */
+h2, h4 {
+    color: #802433;
 }
 
 /* Sticky footer styles
