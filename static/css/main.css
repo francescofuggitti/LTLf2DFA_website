@@ -1,11 +1,12 @@
 /* Navbar */
-.navbar {
-    margin-bottom: 12rem;
+.row-custom {
+    margin-top: 12rem;
 }
 /* Footer */
 .footer a {
     color: white;
 }
+/* Input Form */
 .form-inline {
     width: 80%;
     text-align: center;
@@ -16,6 +17,25 @@
 }
 #inputFormula {
     width: 80%;
+}
+.btn-custom {
+    background-color: #802433;
+    color: white;
+}
+.btn-custom:hover {
+    background-color: rgba(128, 36, 51, 0.8);
+    color: white;
+}
+.sub {
+    width: 80%;
+    padding-left: 0.5rem;
+}
+/* Custom Color anchors */
+.main a {
+    color: #802433;
+}
+.main a:hover {
+    color: rgba(128, 36, 51, 0.8);
 }
 
 /* Sticky footer styles
