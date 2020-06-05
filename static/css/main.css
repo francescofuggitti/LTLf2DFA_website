@@ -1,11 +1,21 @@
 /* Navbar */
 .navbar {
-    margin-bottom: 10rem;
+    margin-bottom: 12rem;
 }
-
 /* Footer */
 .footer a {
     color: white;
+}
+.form-inline {
+    width: 80%;
+    text-align: center;
+}
+.form-group {
+    width: 100%;
+    text-align: center;
+}
+#inputFormula {
+    width: 80%;
 }
 
 /* Sticky footer styles
