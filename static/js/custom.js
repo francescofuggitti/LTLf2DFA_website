@@ -1,35 +1,62 @@
 $(document).ready(function() {
-  $(window).keydown(function(event){
-    if(event.keyCode == 13) {
-      event.preventDefault();
-      return false;
+
+  const FUTURE_OPS = new Set(["X", "F", "U", "G", "WX", "R"]);
+  const PAST_OPS = new Set(["Y", "O", "S", "H"]);
+
+  $("#inputFormula").on("keyup", function () {
+    var typed_formula = $("#inputFormula").val().split("");
+    var upper_case = [];
+    for (var i=0; i<typed_formula.length; i++){
+      if (typed_formula[i] == typed_formula[i].toUpperCase())
+        upper_case.push(typed_formula[i]);
     }
-  });
-});
-function handleClick() {
-  let formula = $("#formula").val();
-  if (formula != ""){
-    let flag = '';
-    if ($('#flag').is(":checked")) {
-      flag = 'true';
+    var found_future = false;
+    var found_past = false;
+    for (var i=0; i<upper_case.length; i++){
+      if (FUTURE_OPS.has(upper_case[i]))
+        found_future = true;
+      if (PAST_OPS.has(upper_case[i]))
+        found_past = true;
+    }
+    if (found_future && found_past){
+      $("#buttonFormula").attr("disabled", true);
+      $("#mixFormula-alert").show();
+
     }
     else{
-      flag = 'false';
+      $("#mixFormula-alert").hide();
+      $("#buttonFormula").attr("disabled", false);
     }
-    //  ajax api request to ltlf2dfa.diag.uniroma1.it/dfa + handle json
-    $.ajax({
-      type: 'POST',
-      url: 'http://ltlf2dfa.diag.uniroma1.it/dfa/'+formula+'/'+flag,
-      success: [function (data) {
-        let parsed = JSON.parse(data);
-        if (parsed.code == "SUCCESS"){
-          document.getElementById('dynamic').innerHTML = "<hr /> <p>Automaton corresponding to \"" + parsed.formula + "\"; declare assumption: "+flag+"</p>";
-          document.getElementById('dynamic').innerHTML += "<img"+atob(parsed.svg)+"</img>";
-        }
-        else{
-          document.getElementById('dynamic').innerHTML = '<hr /> <p>Request Status: ' + parsed.code + '; Error Text: ' + parsed.error+"</p>";
-        }
-      }]
-    });
-  }
-}
+  });
+
+
+
+
+  //
+  // $("#buttonFormula").click( function() {
+  //   if ($("#inputFormula").val() !== ''){
+  //     $("#buttonFormula").attr("disabled", true);
+  //
+  //     $.ajax({
+  //       url: "/dfa",
+  //       type: "POST",
+  //       data: {
+  //         inputFormula: $('#inputFormula').val()
+  //       },
+  //       success: function(response) {
+  //         if (response.code === "SUCCESS"){
+  //           $("#inputFormula").html(response.formula);
+  //           $("#row-result").html(atob(response.svg))
+  //           $("#buttonFormula").attr("disabled", false);
+  //         }
+  //       },
+  //       error: function(xhr) {
+  //         alert(xhr.code+": "+xhr.error)
+  //       }
+  //     });
+  //   }
+  //
+  // });
+
+
+});

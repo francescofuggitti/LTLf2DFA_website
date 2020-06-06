@@ -27,7 +27,8 @@
     background-color: #802433;
     color: white;
 }
-.btn-custom:hover {
+.btn-custom:hover,
+.btn-custom:disabled {
     background-color: rgba(128, 36, 51, 0.8);
     color: white;
 }
