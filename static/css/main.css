@@ -50,6 +50,12 @@
 h2, h4 {
     color: #802433;
 }
+/* Spinner */
+.spinner-border {
+    color: #802433;
+    width: 4rem;
+    height: 4rem;
+}
 
 /* Sticky footer styles
 -------------------------------------------------- */

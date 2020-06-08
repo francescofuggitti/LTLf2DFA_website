@@ -4,6 +4,7 @@ $(document).ready(function() {
   const PAST_OPS = new Set(["Y", "O", "S", "H"]);
 
   $("#inputFormula").on("keyup", function () {
+    $(".spinner-border").hide();
     var typed_formula = $("#inputFormula").val().split("");
     var upper_case = [];
     for (var i=0; i<typed_formula.length; i++){
@@ -20,17 +21,15 @@ $(document).ready(function() {
     }
     if (found_future && found_past){
       $("#buttonFormula").attr("disabled", true);
-      $("#mixFormula-alert").show();
+      $("#Formula-alert").html("Error: You're typing a formula with both past and future operators.");
+      $("#Formula-alert").show();
 
     }
     else{
-      $("#mixFormula-alert").hide();
+      $("#Formula-alert").hide();
       $("#buttonFormula").attr("disabled", false);
     }
   });
-
-
-
 
   //
   // $("#buttonFormula").click( function() {

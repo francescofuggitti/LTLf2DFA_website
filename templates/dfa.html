@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
+<div class="alert alert-danger collapse" role="alert" id="Formula-alert">
+</div>
 <div class="row row-dfa justify-content-md-center" id="row-dfa">
     <form class="form-inline" method="post" action="dfa">
         <div class="form-group form-group-lg">
@@ -11,8 +13,9 @@
                 </svg></a>
             </div>
             <div class="col-9">
-                <label for="inputFormula" class="sr-only"></label>
-                <input type="text" class="form-control form-control-lg" id="inputFormula" name="inputFormula" placeholder="" required>
+                <label for="inputFormula" class="sr-only">{{ formula }}</label>
+                <input type="text" class="form-control form-control-lg" id="inputFormula" name="inputFormula" value="{{ formula }}" required>
+                <input type="checkbox" class="form-check-input" name="exampleCheck1" style="display: none" checked>
             </div>
             <div class="col-2">
                 <button type="submit" id="buttonFormula" class="btn btn-lg btn-light btn-custom">Convert</button>
@@ -29,7 +32,13 @@
 </div>
 
 <hr/>
-<div class="row row-dfa justify-content-md-center" id="row-result">
-    <img src="{{ output }}">
+<div class="row d-flex justify-content-center">
+  <div class="spinner-border" id="spinner" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
+<div class="row row-dfa" id="row-result">
+
+<!--<img src="{{ output }}">-->
 </div>
 {% endblock %}
