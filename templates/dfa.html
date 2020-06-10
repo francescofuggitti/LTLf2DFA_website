@@ -4,24 +4,25 @@
 </div>
 <div class="row row-dfa justify-content-md-center" id="row-dfa">
     <form class="form-inline" method="post" action="dfa">
-        <div class="form-group form-group-lg">
-            <div class="col-10">
+        <div class="form-group form-group-lg align-items-start">
+            <div class="col-md-10">
                 <label for="inputFormula" class="sr-only">{{ formula }}</label>
-                <input type="text" class="form-control form-control-lg" id="inputFormula" name="inputFormula" value="{{ formula }}" required>
+                <input type="text" class="form-control form-control-lg" id="inputFormula" name="inputFormula"
+                       value="{{ formula }}" required>
                 <input type="checkbox" class="form-check-input" name="exampleCheck1" style="display: none" checked>
+                <div class="sub">
+                    <small><a href="ltlf_syntax">LTL<sub>f</sub> Syntax</a></small>
+                    <a style="color:#802433">&middot;</a>
+                    <small><a href="pltlf_syntax">PLTL<sub>f</sub> Syntax</a></small>
+                    <a style="color:#802433">&middot;</a>
+                    <small><a id="rand-example">Random Example</a></small>
+                </div>
             </div>
-            <div class="col-2">
+            <div class="col-md-2">
                 <button type="submit" id="buttonFormula" class="btn btn-lg btn-light btn-custom">Convert</button>
             </div>
         </div>
     </form>
-    <div class="container sub-dfa">
-        <small><a href="ltlf_syntax">LTL<sub>f</sub> Syntax</a></small>
-        <a style="color:#802433">&middot;</a>
-        <small><a href="pltlf_syntax">PLTL<sub>f</sub> Syntax</a></small>
-        <a style="color:#802433">&middot;</a>
-        <small><a id="rand-example">Random Example</a></small>
-    </div>
 </div>
 
 <hr/>
