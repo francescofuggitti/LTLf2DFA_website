@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify, url_for
+from flask import Flask, render_template, request, url_for
 from ltlf2dfa.parser.ltlf import LTLfParser
 from ltlf2dfa.parser.pltlf import PLTLfParser
 import subprocess
@@ -6,7 +6,7 @@ import os
 import datetime
 import uuid
 import base64
-import json
+
 
 PACKAGE_DIR = os.path.dirname(os.path.abspath(__file__))
 FUTURE_OPS = {"X", "F", "U", "G", "WX", "R"}
@@ -25,12 +25,17 @@ def encode_svg(file):
 def write_dot_file(dfa, name):
     """Write DOT file."""
     with open("{}/static/dot/{}.dot".format(PACKAGE_DIR, name), 'w') as fout:
-        fout.write(str(dfa))
+        fout.write(str(dfa).replace(" size = \"7.5,10.5\";", "").replace("LR", "TB"))
 
 
 @app.route('/')
 def index():
     return render_template("index.html")
+
+
+@app.route('/about')
+def about():
+    return render_template("about.html")
 
 
 @app.route('/ltlf_syntax')
@@ -47,7 +52,7 @@ def pltlf_syntax():
 def dfa():
     formula_string = request.form["inputFormula"]
     assert formula_string
-    automa_name = str(datetime.datetime.now()).replace(" ", "_") + "_" + str(uuid.uuid4())
+    automa_name = "dfa_" + str(datetime.datetime.now()).replace(" ", "_") + "_" + str(uuid.uuid4())
 
     if all(c in FUTURE_OPS for c in formula_string if c.isupper()):
         f_parser = LTLfParser()
@@ -77,7 +82,9 @@ def dfa():
     os.unlink("{}/static/dot/{}.dot".format(PACKAGE_DIR, automa_name))
     os.unlink("{}/static/tmp/{}.svg".format(PACKAGE_DIR, automa_name))
 
-    return render_template("dfa.html", formula=formula, output=encoding)
+    return render_template("dfa.html",
+                           formula=formula,
+                           output=encoding)
 
 if __name__== "__main__":
     app.run(debug=True)

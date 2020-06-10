@@ -5,14 +5,7 @@
 <div class="row row-dfa justify-content-md-center" id="row-dfa">
     <form class="form-inline" method="post" action="dfa">
         <div class="form-group form-group-lg">
-            <div class="col-1">
-                <a class="mr-3" href="/">
-                <svg class="bi bi-arrow-left" width="3em" height="3em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" d="M5.854 4.646a.5.5 0 0 1 0 .708L3.207 8l2.647 2.646a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 0 1 .708 0z"/>
-                  <path fill-rule="evenodd" d="M2.5 8a.5.5 0 0 1 .5-.5h10.5a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
-                </svg></a>
-            </div>
-            <div class="col-9">
+            <div class="col-10">
                 <label for="inputFormula" class="sr-only">{{ formula }}</label>
                 <input type="text" class="form-control form-control-lg" id="inputFormula" name="inputFormula" value="{{ formula }}" required>
                 <input type="checkbox" class="form-check-input" name="exampleCheck1" style="display: none" checked>
@@ -27,7 +20,7 @@
         <a style="color:#802433">&middot;</a>
         <small><a href="pltlf_syntax">PLTL<sub>f</sub> Syntax</a></small>
         <a style="color:#802433">&middot;</a>
-        <small><a href="/">Random Example</a></small>
+        <small><a id="rand-example">Random Example</a></small>
     </div>
 </div>
 
@@ -37,8 +30,6 @@
     <span class="sr-only">Loading...</span>
   </div>
 </div>
-<div class="row row-dfa" id="row-result">
-
-<!--<img src="{{ output }}">-->
+<div class="row d-flex justify-content-center" id="row-result">
 </div>
 {% endblock %}
