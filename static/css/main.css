@@ -90,4 +90,12 @@ h1, h2, h3, h4, h5, h6 {
     .sapienza-logo img {
         width: 40%;
     }
+    .logo {
+        width: 70%;
+        display: block;
+        margin: 0 auto;
+    }
+    .row-index {
+        margin-top: 6rem;
+    }
 }

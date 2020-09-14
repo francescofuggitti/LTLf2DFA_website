@@ -9,7 +9,7 @@ import base64
 
 
 PACKAGE_DIR = os.path.dirname(os.path.abspath(__file__))
-FUTURE_OPS = {"X", "F", "U", "G", "WX", "R"}
+FUTURE_OPS = {"X", "F", "U", "G", "W", "R"}
 PAST_OPS = {"Y", "O", "S", "H"}
 
 app = Flask(__name__)
