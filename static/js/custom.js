@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
     const FUTURE_OPS = new Set(["X", "F", "U", "G", "WX", "R"]);
-    const PAST_OPS = new Set(["Y", "O", "S", "H"]);
+    const PAST_OPS = new Set(["Y", "O", "S", "H", "WY", "P"]);
 
     $("#inputFormula").on("keyup", function () {
     $(".spinner-border").hide();

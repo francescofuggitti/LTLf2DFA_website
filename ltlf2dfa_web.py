@@ -7,10 +7,9 @@ import datetime
 import uuid
 import base64
 
-
 PACKAGE_DIR = os.path.dirname(os.path.abspath(__file__))
 FUTURE_OPS = {"X", "F", "U", "G", "W", "R"}
-PAST_OPS = {"Y", "O", "S", "H"}
+PAST_OPS = {"Y", "O", "S", "H", "W", "P"}
 
 app = Flask(__name__)
 
@@ -86,5 +85,6 @@ def dfa():
                            formula=formula,
                            output=encoding)
 
-if __name__== "__main__":
+
+if __name__ == "__main__":
     app.run(debug=True)
